@@ -29,13 +29,14 @@
             font-weight: bold;
             font-size: 1.5em;
         }
+        
     </style>
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <form action="create_user.php" method="post">
-            <div class="row d-flex gap-5">
+            <div class="row d-flex gap-5 justify-content-center ">
                 <div class="card" style="width: 18rem;">
                 <div class="card-title">
                 <h1 class="display-5">Create Your Account</h1>
@@ -54,13 +55,15 @@
         while ($data = mysqli_fetch_assoc($result)) {
             $name = $data['full_name'];
             $skill  = $data['skills'];
+            $image = $data['image'];
             echo <<<CARD
             <div class="card" style="width: 18rem;">
-                <img src="https://ui-avatars.com/api?name=$name&background=random" class="card-img-top img-thumbnail" alt="Profile Image">
+                <img src="images/$image" class="card-img-top img-thumbnail" alt="Profile Image">
                 <div class="card-body">
                     <h5 class="card-title">$name</h5>
                     <p class="card-text">$skill</p>
                     <a href="profileinfo.php?id={$data['id']}" class="btn btn-outline-primary">Profile Info</a>
+                    <a href="delete.php?id={$data['id']}" class="btn btn-outline-danger" onclick="confirm("Are You Sure") ">Delete Profile</a>
                 </div>
             </div>
         CARD;

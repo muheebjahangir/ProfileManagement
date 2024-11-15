@@ -1,7 +1,6 @@
 <?php
 
 
-
 if (isset($_POST["create"])) {
   $name = $_POST["full_name"];
   $email = $_POST["email"];
@@ -13,11 +12,16 @@ if (isset($_POST["create"])) {
   $facebook = $_POST["facebook"];
   $tiktok = $_POST["tiktok"];
   $gender = $_POST["gender"];
-
+  // image uploading
+  $image_name = $_FILES['image']['name'];
+  $image_temp = $_FILES['image']['tmp_name'];
   
+    move_uploaded_file($image_temp,"images/$image_name");
+
+
     require "connection.php";
 
-    $query = "INSERT INTO user_info(full_name,email,mobile,address,skills,insta,facebook,tiktok,gender) VALUES ('$name','$email',$number,'$address','$skill_str','$insta','$gender','$facebook','$tiktok')"; 
+    $query = "INSERT INTO user_info(full_name,email,mobile,address,skills,gender,insta,facebook,tiktok,image) VALUES ('$name','$email',$number,'$address','$skill_str','$gender','$insta','$facebook','$tiktok','$gender','$image_name')"; 
 
     $result = mysqli_query($connection, $query);
     if ($result == true){
@@ -52,7 +56,7 @@ if (isset($_POST["create"])) {
   </div>
   <div class="container my-5">
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Full Name</label>
         <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" name="full_name">
@@ -87,11 +91,11 @@ if (isset($_POST["create"])) {
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Twitter</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" name="facebook">
+        <input type="text" class="form-control" id="exampleInputPassword1" name="tiktok">
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Facebook</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" name="tiktok">
+        <input type="text" class="form-control" id="exampleInputPassword1" name="facebook">
       </div>
 
       <select name="gender" class="select2 form-control">
@@ -99,10 +103,12 @@ if (isset($_POST["create"])) {
         <option value="Female">Famale</option>
         <option value="none">Not specified</option>
       </select>
-
-
+      <input type="file" name="image">
       <input type="submit" value="submit" name="create" class="btn btn-outline-primary py-2 px-5 mt-3">
     </form>
+    <?php 
+
+    ?>
   </div>
   <script>
     $(".select2").select2({

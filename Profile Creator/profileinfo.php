@@ -16,6 +16,7 @@ if (mysqli_num_rows($result) > 0) {
         $facebook = $data["facebook"];
         $tiktok = $data["tiktok"];
         $gender = $data["gender"];
+        $image = $data['image'];
     }
 }
 
@@ -99,7 +100,7 @@ else{
     
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="profile.php">Home</a></li>
               <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
               <li class="breadcrumb-item active" aria-current="page">User Profile</li>
             </ol>
@@ -107,20 +108,23 @@ else{
          
     
           <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-              <div class="card">
+            <div class="col-md-4 mb-3"> 
+            <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                  <?php echo <<<hello
+                  <div class="d-flex flex-column align-items-center text-center">  
+                  <img src="images/$image" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4><?php echo $name?></h4>
-                      <p class="text-muted font-size-sm"><?php echo $address?></p>
+                      <h4>$name</h4>
+                      <p class="text-muted font-size-sm">$address</p>
                       <button class="btn btn-primary">Follow</button>
                       <button class="btn btn-outline-primary">Message</button>
                     </div>
                   </div>
+                  hello;?>
                 </div>
               </div>
+            
               <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -187,8 +191,19 @@ else{
                   </div>
                   <hr>
                   <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Gender</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <?php echo $gender?>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="update.php?id={$_GET['id']}">Edit</a>
+                      <?php echo <<<hello
+                       <a class="btn btn-info " href="update.php?id={$id}">Edit</a> 
+                      hello;?>
                     </div>
                   </div>
                 </div>
